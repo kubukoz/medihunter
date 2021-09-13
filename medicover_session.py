@@ -245,7 +245,7 @@ class MedicoverSession:
             headers=headers,
         )
 
-        if ~result.ok:
+        if not result.ok:
             raise Exception(f"Invalid response (status code {result.status_code}) while searching appointments: {result.text}")
 
         try:
