@@ -245,6 +245,9 @@ class MedicoverSession:
             headers=headers,
         )
 
+        if ~result.ok:
+            raise Exception(f"Invalid response (status code {result.status_code}) while searching appointments: {result.text}")
+
         try:
             appointments = self._parse_search_results(result)
         except KeyError as exc:
