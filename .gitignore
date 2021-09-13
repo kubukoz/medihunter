@@ -119,3 +119,5 @@ visits.db.dir
 /appointments.json
 
 run-once.sh
+
+cli.json
