@@ -17,19 +17,11 @@ Dostępne są dwie wersje skryptu
 
 ## Instalacja
 
-Aktywujemy virtualenva (opcjonalnie choć zalecane)
-
-```bash
-source /path/to/my/virtualenv/bin/activate
+```
+nix-shell
 ```
 
-Przechodzimy do katalogu ze źródłem i odpalamy
-
-```bash
-pip install --editable .
-```
-
-Od teraz mamy dostępną w virtualenvie komendę **medihunter**
+W `$PATH` będzie program `medihunter`.
 
 ## Dostępne subkomendy
 
@@ -126,26 +118,26 @@ domyślnie -f jest ustawiony na *specialization*
 
 TODO: _Poniższe opcje aktualne tylko dla medihunter_pushover.py_
 
-opcja|domyślna wartość
------|----------------
--r, --region|Warszawa
--b, --bookingtype|2, Typ wizyty 2 = Konsultacja (domyślnie), 1 = Badanie diagnostyczne
--s, --specialization|brak Specjalizacja, podać w przypadku gdy Typ wizyty to Konsultacja (bookingtype = 2 domyślnie)
--e, --service|brak, Typ/identyfikator usługi, podać w przypadku gdy Typ wizyty to usługa (bookingtype = 1), działa analogicznie do specjalizacji
--c, --clinic|wszystkie jakie są w regionie/mieście, można użyć parametru wielokrotnie w celu szukania wizyt w konkretnych klinikach
--o, --doctor|wszyscy lekarze, można użyć parametru wielokrotnie w celu sprawdzenie kilku lekarzy
--d, --start-date|data bieżąca (format: YYYY-mm-dd)
--f, --end-date|brak (format: YYYY-mm-dd), dostępna tylko w medihunter.py
--a, --start-time|"0:00" (format: hh:mm), dostępna tylko w medihunter.py
--g, --end-time|"23:59" (format: hh:mm), dostępna tylko w medihunter.py
--j, --days-ahead| 1 = pokazuje wizyty dla pierwszego znalezionego dnia, dostępna tylko w medihunter.py
--i, --interval|brak
---disable-phone-search|brak, Pozwala pominąć wizyty telefoniczne w wyszukiwaniu, dostępna tylko w medihunter.py
---pushover_token|brak, Pushover Application Token
---pushover_user|brak, Pushover user Token
---pushover_device|brak, None nazwa device w Pushover domyślnie pusta=wszystkie
---pushover_msgtitle|brak - prefix dodawany przed tytułem powiadomienia
--t, --notification-title|brak, dostępna tylko w medihunter.py, wspierana tylko przez Pushover
+| opcja                    | domyślna wartość                                                                                                                   |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| -r, --region             | Warszawa                                                                                                                           |
+| -b, --bookingtype        | 2, Typ wizyty 2 = Konsultacja (domyślnie), 1 = Badanie diagnostyczne                                                               |
+| -s, --specialization     | brak Specjalizacja, podać w przypadku gdy Typ wizyty to Konsultacja (bookingtype = 2 domyślnie)                                    |
+| -e, --service            | brak, Typ/identyfikator usługi, podać w przypadku gdy Typ wizyty to usługa (bookingtype = 1), działa analogicznie do specjalizacji |
+| -c, --clinic             | wszystkie jakie są w regionie/mieście, można użyć parametru wielokrotnie w celu szukania wizyt w konkretnych klinikach             |
+| -o, --doctor             | wszyscy lekarze, można użyć parametru wielokrotnie w celu sprawdzenie kilku lekarzy                                                |
+| -d, --start-date         | data bieżąca (format: YYYY-mm-dd)                                                                                                  |
+| -f, --end-date           | brak (format: YYYY-mm-dd), dostępna tylko w medihunter.py                                                                          |
+| -a, --start-time         | "0:00" (format: hh:mm), dostępna tylko w medihunter.py                                                                             |
+| -g, --end-time           | "23:59" (format: hh:mm), dostępna tylko w medihunter.py                                                                            |
+| -j, --days-ahead         | 1 = pokazuje wizyty dla pierwszego znalezionego dnia, dostępna tylko w medihunter.py                                               |
+| -i, --interval           | brak                                                                                                                               |
+| --disable-phone-search   | brak, Pozwala pominąć wizyty telefoniczne w wyszukiwaniu, dostępna tylko w medihunter.py                                           |
+| --pushover_token         | brak, Pushover Application Token                                                                                                   |
+| --pushover_user          | brak, Pushover user Token                                                                                                          |
+| --pushover_device        | brak, None nazwa device w Pushover domyślnie pusta=wszystkie                                                                       |
+| --pushover_msgtitle      | brak - prefix dodawany przed tytułem powiadomienia                                                                                 |
+| -t, --notification-title | brak, dostępna tylko w medihunter.py, wspierana tylko przez Pushover                                                               |
 
 ## Pushover w medihunter.py
 

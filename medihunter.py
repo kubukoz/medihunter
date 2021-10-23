@@ -2,7 +2,6 @@
 this is a startpoint for adding new features
 """
 
-import json
 import time
 from datetime import datetime, timedelta
 from typing import Callable, List
@@ -14,7 +13,6 @@ from medicover_session import (
     MedicoverSession,
     load_available_search_params,
 )
-from medihunter_notifiers import pushover_notify, telegram_notify, xmpp_notify
 
 now = datetime.now()
 now_formatted = now.strftime("%Y-%m-%dT02:00:00.000Z")
@@ -41,20 +39,9 @@ def make_duplicate_checker() -> Callable[[Appointment], bool]:
 duplicate_checker = make_duplicate_checker()
 
 
-def notify_external_device(message: str, notifier: str, **kwargs):
-    # TODO: add more notification providers
-    if notifier == "pushover":
-        title = kwargs.get("notification_title")
-        pushover_notify(message, title)
-    elif notifier == "telegram":
-        telegram_notify(message)
-    elif notifier == "xmpp":
-        xmpp_notify(message)
-
 def process_appointments(
-    appointments: List[Appointment], iteration_counter: int, notifier: str, **kwargs
+    appointments: List[Appointment], iteration_counter: int
 ):
-
     applen = len(appointments)
     click.echo(
         click.style(
@@ -64,18 +51,9 @@ def process_appointments(
         )
     )
 
-    notification_message = ""
-
     for appointment in appointments:
         if duplicate_checker(appointment):
             echo_appointment(appointment)
-            notification_message += f"{appointment.appointment_datetime} {appointment.doctor_name} {appointment.clinic_name}\n"
-
-    if notification_message:
-        notification_title = kwargs.get("notification_title")
-        notify_external_device(
-            notification_message, notifier, notification_title=notification_title
-        )
 
 
 def echo_appointment(appointment):
@@ -114,8 +92,6 @@ def validate_arguments(**kwargs) -> bool:
 @click.option("--service", "-e", default=-1)
 @click.option("--interval", "-i", default=0, show_default=True)
 @click.option("--days-ahead", "-j", default=1, show_default=True)
-@click.option("--enable-notifier", "-n", type=click.Choice(["pushover", "telegram", "xmpp"]))
-@click.option("--notification-title", "-t")
 @click.option("--user", prompt=True)
 @click.password_option(confirmation_prompt=False)
 @click.option("--disable-phone-search", is_flag=True)
@@ -134,8 +110,6 @@ def find_appointment(
     service,
     interval,
     days_ahead,
-    enable_notifier,
-    notification_title,
     disable_phone_search,
 ):
 
@@ -204,8 +178,6 @@ def find_appointment(
             process_appointments(
                 appointments,
                 iteration_counter,
-                notifier=enable_notifier,
-                notification_title=notification_title,
             )
 
         iteration_counter += 1
